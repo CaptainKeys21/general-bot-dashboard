@@ -1,0 +1,22 @@
+---
+import type { IDiscordRole } from '../../types/Discord';
+import { getMainRoleColor } from '../../utils/roleFunctions';
+
+interface Props {
+  role: IDiscordRole;
+}
+
+const { role } = Astro.props;
+const [roleColor, contrastColor] = getMainRoleColor(role);
+---
+<span>{role.name}</span>
+<style lang="scss" define:vars={{roleColor, contrastColor}}>
+  span {
+    color: var(--contrastColor);
+    background-color: var(--roleColor);
+    margin: .5rem 0.5rem;
+    padding: 4px;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+</style>

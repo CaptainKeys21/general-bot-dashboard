@@ -1,0 +1,24 @@
+---
+import Navbar from "../components/general/navbar.astro";
+import Head from "../components/general/head.astro";
+---
+
+<html lang="en">
+<Head title='Dashboard | General Bot'/>
+<body>
+  <Navbar selected={"configs"}/>
+  <main>
+    <slot />
+  </main>
+</body>
+</html>
+<style lang="scss">
+  body {
+    display: grid;
+    grid-template-columns: 15rem auto auto auto 5rem;
+
+    main {
+      grid-column: 2 / 5;
+    }
+  }
+</style>

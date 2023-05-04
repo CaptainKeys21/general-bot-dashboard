@@ -1,0 +1,92 @@
+---
+import ContrastColor from 'contrast-color';
+import type { IDiscordMember } from '../../types/Discord';
+import AvatarImage from './avatarImage.astro';
+import { getHoistedRole, getMainRoleColor } from '../../utils/roleFunctions';
+
+
+interface Props {
+  data: IDiscordMember;
+}
+
+const { data } = Astro.props;
+
+const hoistedRole = getHoistedRole(data.roles)
+const [roleColor, contrastColor] = getMainRoleColor(hoistedRole);
+---
+
+<div class="card-main">
+  <AvatarImage user={data.user} roleColor={roleColor} />
+  <div class="card-data">
+    <h2>
+      <a href={`/members/${data.user.id}`}>
+        {data.nick || data.user.username}{data.user.bot && (<span>BOT</span>)}
+      </a>
+    </h2>
+    <h5>#{data.user.discriminator}</h5>
+    <div class="card-extraData">
+      <span>{hoistedRole.name}</span>
+      <h6>Entrou em: {new Date(data.joined_at).toLocaleString('en-GB')}</h6>
+    </div>
+  </div>
+</div>
+<style lang="scss" define:vars={{roleColor, contrastColor}}>
+  @import '../../styles/variables.scss';
+
+  .card-main {
+    @include defaultShadow;
+    background-color: $discordBlack-Darker;
+    border-radius: 1rem;
+    padding: 1rem;
+
+    
+    display: flex;
+    align-items: center;
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    transition: 200ms ease-in-out;
+
+    .card-data {
+      color: var(--roleColor);
+      margin: 0 1rem;
+
+      a {
+        color: inherit;
+        cursor: pointer;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      span {
+        color: $discordWhite;
+        background-color: #5865f2;
+        font-size: 0.75rem;
+
+        padding: 4px;
+        border-radius: 4px;
+        margin-left: 4px;
+
+        position: relative;
+        bottom: 4px;
+      }
+
+      .card-extraData {
+        margin-top: 8px;
+        color: $discordWhite-Darker;
+        box-sizing: border-box;
+
+        span {
+          color: var(--contrastColor);
+          background-color: var(--roleColor);
+          margin: 0;
+        }
+      }
+    }
+  }
+</style>

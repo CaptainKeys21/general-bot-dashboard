@@ -1,0 +1,23 @@
+---
+import MemberCard from "../../components/member/memberCard.astro";
+import MembersLayout from "../../layouts/membersLayout.astro";
+import type { IDiscordMember } from "../../types/Discord";
+import type { IApiPagedResponse } from "../../types/Responses";
+import axios from '../../utils/axios';
+
+// const memberList: IApiPagedResponse<IDiscordMember[]> = await fetch('http://general-bot-api-development:8081/members').then((r) => r.json());
+
+let memberList: IApiPagedResponse<IDiscordMember[]> | undefined;
+try {
+  const res = await axios.get<IApiPagedResponse<IDiscordMember[]>>('/members');
+  memberList = res.data;
+} catch (error) {
+  Astro.redirect('/404');
+}
+
+
+
+---
+<MembersLayout>
+  {memberList && memberList.data.map((member) => <MemberCard data={member} />)}
+</MembersLayout>

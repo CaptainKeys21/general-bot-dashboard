@@ -1,0 +1,28 @@
+---
+import Navbar from "../components/general/navbar.astro";
+import Head from "../components/general/head.astro";
+---
+
+<html lang="en">
+<Head title='Members | General Bot'/>
+<body>
+  <Navbar selected={"members"}/>
+  <main>
+    <slot />
+  </main>
+</body>
+</html>
+<style lang="scss">
+  body {
+    display: grid;
+    grid-template-columns: 20rem auto auto auto 10rem;
+
+    main {
+      grid-column: 2 / 5;
+      display: grid;
+      grid-template-columns: auto auto auto;
+
+      gap: 2rem;
+    }
+  }
+</style>

@@ -1,0 +1,151 @@
+---
+import { generateFilter } from 'colorize-filter';
+import ContrastColor from 'contrast-color';
+
+interface Props {
+  selected: 'dash' | 'cmds' | 'configs' | 'logs' | 'members';
+  bgColor?: `#${string}`;
+}
+
+const { selected, bgColor = '#1E1F22' } = Astro.props;
+
+const secondColor = new ContrastColor({ bgColor, fgLightColor: '#F2F3F5', fgDarkColor: "#1E1F22" }).contrastColor();
+const imgFilter = generateFilter(secondColor);
+---
+
+<nav>
+  <header>
+    <img src="/images/GeneralBotLogo.svg" alt="General Bot Logo">
+    <h1>General Bot</h1>
+    <small>Ver. 1.0.0</small>
+  </header>
+  <ul>
+    <li class:list={{selected: selected === 'dash'}}>
+      <a href="./dashboard">Dashboard</a>
+    </li>
+    <li class:list={{selected: selected === 'cmds'}}>
+      <a id='dropdown-btn-cmd' href="#">Comandos</a>
+      <ul id='dropdown-menu-cmd'>
+        <li><a href="#">Admin</a></li>
+        <li><a href="#">Moderador</a></li>
+        <li><a href="#">Geral</a></li>
+        <li><a href="#">Música</a></li>
+        <li><a href="#">Miscelâneas</a></li>
+      </ul>
+    </li>
+    <li class:list={{selected: selected === 'configs'}}>
+      <a href="/config">Configurações</a>
+    </li>
+    <li class:list={{selected: selected === 'members'}}>
+      <a href="/members">Membros</a>
+    </li>
+    <li class:list={{selected: selected === 'logs'}}>
+      <a href="/logger">Logger</a>
+    </li>
+  </ul>
+  <footer>
+    
+  </footer>
+</nav>
+<script>
+  const buttons = document.querySelectorAll('[id^="dropdown-btn"]') as NodeListOf<HTMLElement>;
+  const dropdowns = document.querySelectorAll('[id^="dropdown-menu"]') as NodeListOf<HTMLElement>;
+
+  buttons.forEach((btn, key) => {
+    btn.addEventListener('click', () => {
+      dropdowns[key].classList.contains('show') ? dropdowns[key].classList.remove('show') : dropdowns[key].classList.add('show');
+    });
+  });
+</script>
+<style lang="scss" define:vars={{ bgColor, imgFilter, secondColor }}>
+  @import '../../styles/variables.scss';
+
+  nav {
+    @include defaultShadow;
+    background-color: var(--bgColor);
+    position: fixed;
+
+    width: 12rem;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    header {
+      margin: 1rem 0;
+
+      img {
+        //filter: invert(100%);
+        filter: var(--imgFilter);
+        height: 96px;
+      }
+
+      h1, small {
+        color: var(--secondColor);
+      }
+
+      small {
+        font-style: italic;
+      }
+    }
+
+    ul {
+      margin: 1rem 0;
+      width: 100%;
+
+      list-style: none;
+      font-size: 1.25rem;
+
+    }
+
+    li {
+      display: flex;
+      flex-direction: column;
+      a {
+        color: var(--secondColor);
+        text-decoration: none;
+        padding: 1rem 2rem;
+        
+
+        &:visited {
+          color: var(--secondColor);
+        }
+
+        
+        &:hover {
+          background-color: $alphaDark;
+          transition: 150ms ease-in-out;
+        }
+      }
+
+      &.selected, &.selected a:hover {
+        background-color: var(--selectedColor);
+      }
+
+    }
+
+    ul[id^='dropdown-menu'] {
+      max-height: 0;
+      transition: max-height 250ms ease-in-out;
+
+      &.show {
+        max-height: 210px;
+      }
+
+      overflow: hidden;
+
+      background-color: $discordBlack;
+      font-size: 1rem;
+      margin: 0;
+      
+      li {
+        a {
+          color: $discordWhite;
+          padding: 0.75rem 3rem;
+        }
+      }
+    }
+
+  }
+</style>

@@ -1,0 +1,17 @@
+$discordBlack-Bright: #313338;
+$discordBlack: #2B2D31;
+$discordBlack-Darker: #1E1F22;
+
+$discordWhite-Darker: #E3E5E8;
+$discordWhite: #F2F3F5;
+$discordWhite-Bright: #FFFFFF;
+
+$discordGreen: #23A55A;
+$discordYellow: #E4AB32;
+$discordRed: #E63E41;
+
+$alphaDark: rgba($color: #000000, $alpha: 0.2);
+
+@mixin defaultShadow {
+  box-shadow: 4px 0 16px 0 $alphaDark;
+}

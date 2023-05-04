@@ -1,0 +1,34 @@
+---
+import Navbar from "../components/general/navbar.astro";
+import Head from "../components/general/head.astro";
+---
+
+<html lang="en">
+<Head title='Configurações | General Bot'/>
+<body>
+  <Navbar selected={"dash"}/>
+  <main>
+    <slot />
+  </main>
+</body>
+</html>
+<style lang="scss">
+  @import '../styles/variables.scss';
+  body {
+    display: grid;
+    grid-template-columns: 25rem auto auto auto 15rem;
+
+    main {
+      @include defaultShadow;
+
+      grid-column: 2 / 5;
+      
+      background-color: $discordBlack-Darker;
+      border-radius: 1rem;
+      overflow: hidden;
+
+      margin: 4rem;
+      padding: 1rem;
+    }
+  }
+</style>

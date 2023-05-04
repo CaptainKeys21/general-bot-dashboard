@@ -1,0 +1,10 @@
+---
+import LoggerLayout from "../layouts/loggerLayout.astro";
+import LoggerWrapper from "../components/logger";
+import ControlPannel from "../components/logger/controlPannel";
+---
+
+<LoggerLayout>
+  <LoggerWrapper client:only="react"/>
+</LoggerLayout>
+

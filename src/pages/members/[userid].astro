@@ -1,0 +1,138 @@
+---
+import AvatarImage from "../../components/member/avatarImage.astro";
+import RoleSpan from "../../components/member/roleSpan.astro";
+import MemberControllerLayout from "../../layouts/memberControllerLayout.astro";
+import type { IDiscordMember } from "../../types/Discord";
+import type { IApiResponse } from "../../types/Responses";
+import { getHoistedRole, getMainRoleColor } from "../../utils/roleFunctions";
+
+const { userid } = Astro.params;
+const res: IApiResponse<IDiscordMember> = await fetch(`http://general-bot-api-development:8081/members/${userid}`).then((r) => r.json());
+
+const { data } = res;
+
+const hoistedRole = getHoistedRole(data.roles)
+const [roleColor, contrastColor] = getMainRoleColor(hoistedRole);
+---
+<MemberControllerLayout username={data.nick || data.user.username}>
+  <div class="user-card">
+    <AvatarImage 
+      user={data.user}
+      roleColor={roleColor}
+      avatarSize={256}
+      size='16rem'
+    />
+    <div class="data-card">
+      <div class="main-data">
+        <h1>{data.nick || data.user.username}</h1>
+        <h2>{data.nick? data.user.username:''}#{data.user.discriminator}</h2>
+        <h4>Membro desde: {new Date(data.joined_at).toLocaleString('en-GB')}</h4>
+        {data.premium_since && (<h4>Premium desde: {new Date(data.premium_since).toLocaleString('en-GB')}</h4>)}
+      </div>
+      <div class="data-roles">
+        {data.roles.map((role) => <RoleSpan role={role} />)}
+      </div>
+    </div>
+  </div>
+  <div class="bans-card">
+    <div class="header">
+      <h2>Banimentos e Punições</h2>
+    </div>
+    <div class="body">
+      <p>Ainda não foi implementado :(</p>
+    </div>
+  </div>
+  <div class="msgs-card">
+    <div class="header">
+      <h2>Mensagens e Tickets</h2>
+    </div>
+    <div class="body">
+      <p>Ainda não foi implementado :(</p>
+    </div>
+  </div>
+</MemberControllerLayout>
+
+<style lang="scss" define:vars={{roleColor, contrastColor}}>
+  @import '../../styles/variables.scss';
+
+  .user-card {
+    @include defaultShadow;
+    background-color: $discordBlack-Darker;
+    color: $discordWhite;
+
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    grid-area: data;
+
+    align-items: center;
+
+    .main-data {
+      h4 {
+        font-weight: normal;
+      }
+
+      display: flex;
+      flex-direction: column;
+
+      background-color: $alphaDark;
+      padding: 0.5rem;
+      margin: 0.5rem;
+      border-radius: 1rem;
+
+      white-space: nowrap;
+    }
+
+
+    .data-card {
+      margin-left: 1rem;
+    }
+
+    .data-roles {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  .bans-card {
+    @include defaultShadow;
+    grid-area: bans;
+    background-color: $discordBlack-Darker;
+    border-radius: 1rem;
+    overflow: hidden;
+
+    .header {
+      background-color: $discordRed;
+      color: $discordBlack-Darker;
+      padding: 0.5rem;
+    }
+
+    .body {
+      padding: 1rem;
+      color: $discordWhite;
+
+      display: flex;
+    }
+  }
+
+  .msgs-card {
+    @include defaultShadow;
+    grid-area: msgs;
+    background-color: $discordBlack-Darker;
+    border-radius: 1rem;
+    overflow: hidden;
+
+    .header {
+      background-color: var(--roleColor);
+      color: var(--contrastColor);
+      padding: 0.5rem;
+    }
+
+    .body {
+      padding: 1rem;
+      color: $discordWhite;
+
+      display: flex;
+    }
+  }
+</style>

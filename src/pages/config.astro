@@ -1,0 +1,86 @@
+---
+import BasicInput from "../components/general/BasicInput.astro";
+import ConfigLayout from "../layouts/configLayout.astro";
+import axios from '../utils/axios';
+import type { IKeynamedGeneralConfig } from "../types/Config";
+import type { IApiResponse } from "../types/Responses";
+
+// const res: IApiResponse<IKeynamedGeneralConfig> = await fetch('http://general-bot-api-development:8081/config/general?keyname=true').then((r) => r.json());
+
+// const { data } = res;
+
+let data: IKeynamedGeneralConfig | undefined;
+try {
+  const res = await axios.get<IApiResponse<IKeynamedGeneralConfig>>('/config/general?keyname=true');
+  data = res.data.data;
+} catch (error) {
+  Astro.redirect('/404')
+}
+
+if (Astro.request.method === 'POST' && data) {
+  try {
+    const form = await Astro.request.formData();
+    Object.keys(data).map((key) => {
+      const value = form.get(key);
+      
+      // fetch(`http://general-bot-api-development:8081/config/general?name=${key}`, {
+      //   method: 'put',
+      //   headers: {
+      //     "Content-Type": 'application/json',
+      //   },
+      //   body: JSON.stringify({ data: value })
+      // });
+
+      axios.put(`/config/general?name=${key}`, { data: value })
+    });
+
+    Astro.redirect('/config')
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+---
+<ConfigLayout>
+  <div class="header">
+    <h1>Configurações do Bot</h1>
+  </div>
+  <form method="POST">
+    {data && Object.entries(data).map(([key, value]) => (<BasicInput label key={key} config={value}/>))}
+    <div class="footer">
+      <button>Salvar</button>
+    </div>
+  </form>
+</ConfigLayout>
+<style lang="scss">
+  @import '../styles/variables.scss';
+
+  .header {
+    color: $discordWhite;
+    padding: 1rem;
+  }
+
+  .footer {
+    width: 100%;
+    padding: 1rem;
+
+
+    button {
+      background-color: #5865f2;
+      color: $discordBlack-Darker;
+      font-size: 1rem;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 0.5rem;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+</style>
