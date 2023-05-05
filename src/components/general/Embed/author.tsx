@@ -13,10 +13,10 @@ const MessageEmbedAuthor = ({ author }: Props) => {
       )}
       {author.url? (
         <a href={author.url}>
-          <span>{author.name}</span>
+          <h5>{author.name}</h5>
         </a>
       ):(
-        <span>{author.name}</span>
+        <h5>{author.name}</h5>
       )}
     </div>
   );

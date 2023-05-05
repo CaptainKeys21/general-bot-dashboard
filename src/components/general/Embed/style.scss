@@ -1,5 +1,96 @@
 @import '../../../styles/variables.scss';
 
 .embed-main {
+  background-color: $alphaDark;
 
+  padding: 8px;
+  border-radius: 4px;
+  display: grid;
+
+  grid-template-rows: auto auto auto auto auto auto;
+  grid-template-columns: auto auto auto;
+  grid-template-areas: 
+    'author author thumb'
+    'title title thumb'
+    'desc desc thumb'
+    'field field field'
+    'image image image'
+    'footer footer footer';
+
+  div {
+    border: none;
+  }
+}
+
+.embed-author {
+  grid-area: author;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 24px;
+    height: auto;
+
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
+  a {
+    color: $discordWhite;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.embed-title {
+  grid-area: title;
+
+  font-size: 0.75rem;
+}
+
+.embed-thubnail-wrapper {
+  grid-area: thumb;
+  text-align: end;
+  
+  img {
+    width: 8rem;
+    height: auto;
+
+    border-radius: 4px;
+  }
+}
+
+.embed-description {
+  grid-area: desc;
+}
+
+.embed-image-wrapper {
+  grid-area: image;
+
+  img {
+    width: 32rem;
+    height: auto;
+  }
+}
+
+.embed-field-wrapper {
+  grid-area: field;
+  display: flex;
+  flex-wrap: wrap;
+
+  & > .embed-field {
+    margin: 8px;
+    width: 100%;
+
+    &.inline {
+      width: auto;
+    }
+  }
+}
+
+.embed-footer {
+  grid-area: footer;
 }

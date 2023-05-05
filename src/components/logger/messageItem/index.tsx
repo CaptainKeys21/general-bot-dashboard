@@ -17,7 +17,7 @@ const MessageItem = ({ data }: Props) => {
       </div>
       <div className="log-main">
         <div className="log-data">
-          <p>{msg.content}</p>
+          {msg.content && (<p>{msg.content}</p>)}
           {msg.embeds.map((embed, index) => (<MessageEmbed embed={embed} key={index} />))}
         </div>
         <div className='log-author'>

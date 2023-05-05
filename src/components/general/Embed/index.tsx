@@ -11,8 +11,9 @@ interface Props {
 
 
 const MessageEmbed = ( { embed }: Props ) => {
+  const embedColor = embed.colour?.toString(16) || '#1e1f22';
   return (
-    <div className="embed-main" style={{ borderLeft: `4px solid ${embed.colour?.toString(16) || '#1e1f22'}` }}>
+    <div className="embed-main" style={{ borderLeft: `6px solid ${embedColor}` }}>
       {embed.author && (<MessageEmbedAuthor author={embed.author} />)}
 
       {embed.title && (
@@ -36,7 +37,11 @@ const MessageEmbed = ( { embed }: Props ) => {
         </div>
       )}
 
-      {embed.fields.map((field, index) => (<MessageEmbedField field={field} key={index}/>))}
+      {embed.fields.length && (
+        <div className="embed-field-wrapper">
+          {embed.fields.map((field, index) => (<MessageEmbedField field={field} key={index}/>))}
+        </div>
+      )}
 
       {embed.image && (
         <div className="embed-image-wrapper">
