@@ -12,6 +12,6 @@ const MessageEmbedField = ({ field }: Props) => {
       <p>{field.value}</p>
     </div>
   );
-}
+};
 
 export default MessageEmbedField;

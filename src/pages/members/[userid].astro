@@ -1,17 +1,17 @@
 ---
-import AvatarImage from "../../components/member/avatarImage.astro";
-import RoleSpan from "../../components/member/roleSpan.astro";
-import MemberControllerLayout from "../../layouts/memberControllerLayout.astro";
-import type { IDiscordMember } from "../../types/Discord";
-import type { IApiResponse } from "../../types/Responses";
-import { getHoistedRole, getMainRoleColor } from "../../utils/roleFunctions";
+import AvatarImage from '../../components/member/avatarImage.astro';
+import RoleSpan from '../../components/member/roleSpan.astro';
+import MemberControllerLayout from '../../layouts/memberControllerLayout.astro';
+import type { DiscordMember } from '../../types/Discord';
+import type { IApiResponse } from '../../types/Responses';
+import { getHoistedRole, getMainRoleColor } from '../../utils/roleFunctions';
 
 const { userid } = Astro.params;
-const res: IApiResponse<IDiscordMember> = await fetch(`http://general-bot-api-development:8081/members/${userid}`).then((r) => r.json());
+const res: IApiResponse<DiscordMember> = await fetch(`http://general-bot-api-development:8081/members/${userid}`).then((r) => r.json());
 
 const { data } = res;
 
-const hoistedRole = getHoistedRole(data.roles)
+const hoistedRole = getHoistedRole(data.roles);
 const [roleColor, contrastColor] = getMainRoleColor(hoistedRole);
 ---
 <MemberControllerLayout username={data.nick || data.user.username}>

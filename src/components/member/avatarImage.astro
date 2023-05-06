@@ -1,8 +1,8 @@
 ---
-import type { IDiscordUser } from '../../types/Discord';
+import type { DiscordUser } from '../../types/Discord';
 
 interface Props {
-  user: IDiscordUser;
+  user: DiscordUser;
   roleColor?: string;
   avatarSize?: number;
   size?: `${number}rem` | `${number}px`
@@ -12,10 +12,10 @@ const { user, roleColor, avatarSize, size='8rem' } = Astro.props;
 ---
 <div class="img-wrapper">
   {user.avatar? (
-      <img src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png${avatarSize? `?size=${avatarSize}`:''}`} alt="Discord Avatar" />
-    ):(
-      <img src={`https://cdn.discordapp.com/embed/avatars/${Number(user.discriminator) % 5}.png`} alt="Discord Avatar" />
-    )
+    <img src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png${avatarSize? `?size=${avatarSize}`:''}`} alt="Discord Avatar" />
+  ):(
+    <img src={`https://cdn.discordapp.com/embed/avatars/${Number(user.discriminator) % 5}.png`} alt="Discord Avatar" />
+  )
   }
 </div>
 

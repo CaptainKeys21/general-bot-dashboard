@@ -1,9 +1,9 @@
 ---
-import BasicInput from "../components/general/BasicInput.astro";
-import ConfigLayout from "../layouts/configLayout.astro";
+import BasicInput from '../components/general/BasicInput.astro';
+import ConfigLayout from '../layouts/configLayout.astro';
 import axios from '../utils/axios';
-import type { IKeynamedGeneralConfig } from "../types/Config";
-import type { IApiResponse } from "../types/Responses";
+import type { IKeynamedGeneralConfig } from '../types/Config';
+import type { IApiResponse } from '../types/Responses';
 
 // const res: IApiResponse<IKeynamedGeneralConfig> = await fetch('http://general-bot-api-development:8081/config/general?keyname=true').then((r) => r.json());
 
@@ -14,7 +14,7 @@ try {
   const res = await axios.get<IApiResponse<IKeynamedGeneralConfig>>('/config/general?keyname=true');
   data = res.data.data;
 } catch (error) {
-  Astro.redirect('/404')
+  Astro.redirect('/404');
 }
 
 if (Astro.request.method === 'POST' && data) {
@@ -31,10 +31,10 @@ if (Astro.request.method === 'POST' && data) {
       //   body: JSON.stringify({ data: value })
       // });
 
-      axios.put(`/config/general?name=${key}`, { data: value })
+      axios.put(`/config/general?name=${key}`, { data: value });
     });
 
-    Astro.redirect('/config')
+    Astro.redirect('/config');
   } catch (e) {
     console.error(e);
   }

@@ -1,9 +1,9 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import axios from '../../../utils/axios';
 import './styles.scss';
-import type { IApiResponse } from "../../../types/Responses";
-import { useStore } from "@nanostores/react";
-import { page, pageSize, selectedColections } from "./selectedCollections";
+import type { IApiResponse } from '../../../types/Responses';
+import { useStore } from '@nanostores/react';
+import { page, pageSize, selectedColections } from './selectedCollections';
 
 
 const ControlPannel = () => {
@@ -27,10 +27,10 @@ const ControlPannel = () => {
   };
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     $selectedCollections.includes(e.target.name)? removeCollection(e.target.name):addCollection(e.target.name);
-  }
+  };
 
   useEffect(() => {
-    axios.get<IApiResponse<string[]>>(`/logger/categories`, { baseURL: 'http://localhost:8081' })
+    axios.get<IApiResponse<string[]>>('/logger/categories', { baseURL: 'http://localhost:8081' })
       .then((res) => setCollections(res.data.data));
   },[]);
 
@@ -55,7 +55,7 @@ const ControlPannel = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default ControlPannel;

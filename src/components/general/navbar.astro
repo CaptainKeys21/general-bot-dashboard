@@ -9,7 +9,7 @@ interface Props {
 
 const { selected, bgColor = '#1E1F22' } = Astro.props;
 
-const secondColor = new ContrastColor({ bgColor, fgLightColor: '#F2F3F5', fgDarkColor: "#1E1F22" }).contrastColor();
+const secondColor = new ContrastColor({ bgColor, fgLightColor: '#F2F3F5', fgDarkColor: '#1E1F22' }).contrastColor();
 const imgFilter = generateFilter(secondColor);
 ---
 

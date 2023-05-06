@@ -1,18 +1,18 @@
 ---
-import Navbar from "../components/general/navbar.astro";
-import Head from "../components/general/head.astro";
-import ControlPannel from "../components/logger/controlPannel";
+import Navbar from '../components/general/navbar.astro';
+import Head from '../components/general/head.astro';
+import ControlPannel from '../components/logger/controlPannel';
 ---
 
 <html lang="en">
-<Head title='Logger | General Bot'/>
-<body>
-  <Navbar selected={"logs"}/>
-  <ControlPannel client:only="react"/>
-  <main>
-    <slot />
-  </main>
-</body>
+  <Head title='Logger | General Bot'/>
+  <body>
+    <Navbar selected={'logs'}/>
+    <ControlPannel client:only="react"/>
+    <main>
+      <slot />
+    </main>
+  </body>
 </html>
 <style lang="scss">
   body {

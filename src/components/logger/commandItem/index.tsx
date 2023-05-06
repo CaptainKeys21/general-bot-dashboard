@@ -1,5 +1,5 @@
-import React from "react";
-import type { CommandLog } from "../../../types/Logger";
+import React from 'react';
+import type { CommandLog } from '../../../types/Logger';
 import './styles.scss';
 
 interface Props {
@@ -22,7 +22,7 @@ const CommandItem = ({ data }: Props) => {
             <span>Comando: </span>
             <span>{data.command.name}</span>
           </div>
-          {"args" in data.command && data.command.args.length > 0 && (<div>
+          {'args' in data.command && data.command.args.length > 0 && (<div>
             <span>Args: </span>
             <span>{data.command.args.join(' | ')}</span>
           </div>)}
@@ -38,6 +38,6 @@ const CommandItem = ({ data }: Props) => {
       </div>
     </div>
   );
-}
+};
 
 export default CommandItem;

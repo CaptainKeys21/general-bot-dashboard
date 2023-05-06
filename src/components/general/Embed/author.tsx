@@ -20,6 +20,6 @@ const MessageEmbedAuthor = ({ author }: Props) => {
       )}
     </div>
   );
-}
+};
 
 export default MessageEmbedAuthor;

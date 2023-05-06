@@ -1,7 +1,7 @@
-import React from "react";
-import type { MessageLog } from "../../../types/Logger";
+import React from 'react';
+import type { MessageLog } from '../../../types/Logger';
 import './styles.scss';
-import MessageEmbed from "../../general/Embed";
+import MessageEmbed from '../../general/Embed';
 
 interface Props {
   data: MessageLog;
@@ -31,6 +31,6 @@ const MessageItem = ({ data }: Props) => {
       </div>
     </div>
   );
-}
+};
 
 export default MessageItem;

@@ -1,6 +1,6 @@
 ---
-import Navbar from "../components/general/navbar.astro";
-import Head from "../components/general/head.astro";
+import Navbar from '../components/general/navbar.astro';
+import Head from '../components/general/head.astro';
 
 interface Props {
   username: string;
@@ -10,13 +10,13 @@ const { username } = Astro.props;
 ---
 
 <html lang="en">
-<Head title={`${username} | General Bot`}/>
-<body>
-  <Navbar selected={"members"}/>
-  <main>
-    <slot />
-  </main>
-</body>
+  <Head title={`${username} | General Bot`}/>
+  <body>
+    <Navbar selected={'members'}/>
+    <main>
+      <slot />
+    </main>
+  </body>
 </html>
 <style lang="scss">
   body {

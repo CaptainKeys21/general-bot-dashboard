@@ -49,6 +49,13 @@
   grid-area: title;
 
   font-size: 0.75rem;
+  a {
+    text-decoration: none;
+    color: #00a8fc;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .embed-thubnail-wrapper {

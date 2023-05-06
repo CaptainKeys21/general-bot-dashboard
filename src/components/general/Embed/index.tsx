@@ -25,7 +25,7 @@ const MessageEmbed = ( { embed }: Props ) => {
         </div>
       )}
 
-      {embed.thumbnail && (
+      {!embed.video && embed.thumbnail && (
         <div className="embed-thubnail-wrapper">
           <img src={embed.thumbnail.url} alt="Embed Thumbnail" width={embed.thumbnail.width || undefined} height={embed.thumbnail.height || undefined}/>
         </div>
@@ -37,7 +37,7 @@ const MessageEmbed = ( { embed }: Props ) => {
         </div>
       )}
 
-      {embed.fields.length && (
+      {embed.fields.length > 0 && (
         <div className="embed-field-wrapper">
           {embed.fields.map((field, index) => (<MessageEmbedField field={field} key={index}/>))}
         </div>
@@ -52,6 +52,6 @@ const MessageEmbed = ( { embed }: Props ) => {
       {embed.footer && <MessageEmbedFooter footer={embed.footer }/>}
     </div>
   );
-}
+};
 
 export default MessageEmbed;

@@ -1,17 +1,17 @@
 ---
 import ContrastColor from 'contrast-color';
-import type { IDiscordMember } from '../../types/Discord';
+import type { DiscordMember } from '../../types/Discord';
 import AvatarImage from './avatarImage.astro';
 import { getHoistedRole, getMainRoleColor } from '../../utils/roleFunctions';
 
 
 interface Props {
-  data: IDiscordMember;
+  data: DiscordMember;
 }
 
 const { data } = Astro.props;
 
-const hoistedRole = getHoistedRole(data.roles)
+const hoistedRole = getHoistedRole(data.roles);
 const [roleColor, contrastColor] = getMainRoleColor(hoistedRole);
 ---
 

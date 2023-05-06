@@ -12,6 +12,6 @@ const MessageEmbedFooter = ({ footer }: Props) => {
       <small>{footer.text}</small>
     </div>
   );
-}
+};
 
 export default MessageEmbedFooter;
