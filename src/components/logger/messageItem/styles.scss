@@ -1,62 +1,81 @@
 @import '../../../styles/variables.scss';
 
-.main {
+.main.message {
   @include defaultShadow;
   background-color: $discordBlack-Darker;
   margin: 2rem;
   border-radius: 0.5rem;
-}
 
-.log-main {
-  padding: 1rem;
-}
+  .log-main {
+    padding: 1rem;
+  }
 
-.log-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 2rem;
-}
-
-.log-type {
-  font-size: 1.125rem;
-  font-style: italic;
-  padding: 0.25rem;
-  width: 20rem;
-  height: 100%;
-  border-radius: 0.5rem 0;
+  .log-data {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
   
-
-  &.Info {
-    background-color: $discordGreen;
-  }
-}
-
-.log-date {
-  color: $discordBlack-Darker;
-  background-color: $discordWhite;
-  height: 100%;
-  padding: 0.25rem;
-  border-radius: 0 0.5rem;
-}
-
-.log-author {
-  display: flex;
-  align-items: center;
-
-  span {
+    background-color: $discordBlack;
+  
     color: $discordWhite;
-    font-size: 0.75rem;
-  }
 
-
-  .img-wrapper {
-    img {
-      width: 1.5rem;
-      border-radius: 50%;
-      overflow: hidden;
+    .message-sticker {
+      display: flex;
+      flex-direction: column;
+      img {
+        width: 160px;
+        height: auto;
+      }
     }
-
-    margin-right: 0.5rem;
+  }
+  
+  .log-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 2rem;
+  }
+  
+  .log-type {
+    font-size: 1.125rem;
+    font-style: italic;
+    padding: 0.25rem;
+    width: 20rem;
+    height: 100%;
+    border-radius: 0.5rem 0;
+    
+  
+    &.Info {
+      background-color: $discordGreen;
+    }
+  }
+  
+  .log-date {
+    color: $discordBlack-Darker;
+    background-color: $discordWhite;
+    height: 100%;
+    padding: 0.25rem;
+    border-radius: 0 0.5rem;
+  }
+  
+  .log-author {
+    display: flex;
+    align-items: center;
+  
+    span {
+      color: $discordWhite;
+      font-size: 0.75rem;
+    }
+  
+  
+    .img-wrapper {
+      img {
+        width: 1.5rem;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+  
+      margin-right: 0.5rem;
+    }
   }
 }

@@ -7,9 +7,10 @@
   border-radius: 4px;
   display: grid;
 
-  grid-template-rows: auto auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto auto auto;
   grid-template-columns: auto auto auto;
   grid-template-areas: 
+    'prov prov thumb'
     'author author thumb'
     'title title thumb'
     'desc desc thumb'
@@ -80,6 +81,7 @@
   img {
     width: 32rem;
     height: auto;
+    border-radius: 8px;
   }
 }
 
@@ -94,6 +96,47 @@
 
     &.inline {
       width: auto;
+    }
+  }
+}
+
+.embed-video-wrapper {
+  grid-area: image;
+  display: flex;
+  
+  & > div {
+    margin: 0;
+    padding: 0;
+
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .embed-video-controller {
+    position: absolute;
+    top: 50%;
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    background-color: rgba($color: #000000, $alpha: 0.8);;
+    padding: 16px;
+
+    font-size: 24px;
+
+    button {
+      background: none;
+      border: none;
+      color: $discordWhite;
+      font-size: 20px;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+
+    a {
+      color: $discordWhite;
     }
   }
 }

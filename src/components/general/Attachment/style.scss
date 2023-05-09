@@ -1,0 +1,24 @@
+@import '../../../styles/variables.scss';
+.message-attachment {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  padding: 8px;
+
+  small {
+    margin-top: 8px;
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+  a {
+    color: $discordWhite;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

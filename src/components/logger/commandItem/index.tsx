@@ -8,7 +8,7 @@ interface Props {
 
 const CommandItem = ({ data }: Props) => {
   return (
-    <div className="main">
+    <div className="main command">
       <div className='log-head'>
         <div className={`log-type ${data.logType}`}>{data.category.toUpperCase()} | {data.logType.toUpperCase()}</div>
         <div className='log-date'>{new Date(data.time).toLocaleString('en-GB')}</div>
@@ -31,9 +31,7 @@ const CommandItem = ({ data }: Props) => {
           <div className="img-wrapper">
             <img src={`https://cdn.discordapp.com/avatars/${data.author.id}/${data.author.avatar}.png`} alt="Discord Avatar" />
           </div>
-          <span>
-            {data.author.username}#{data.author.discriminator}
-          </span>
+          <span>{data.author.username}#{data.author.discriminator}</span>
         </div>
       </div>
     </div>

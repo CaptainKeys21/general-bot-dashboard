@@ -91,7 +91,7 @@ export interface DiscordMessage {
     id: string;
     name: string;
     format_type: StickerFormatType;
-  };
+  }[];
   referenced_message: DiscordMessage | null;
   interaction: {
     id: string;
@@ -124,7 +124,7 @@ export interface DiscordAttachment {
   size: number;
   url: string;
   width: number | null;
-  content_type: number | null;
+  content_type: string | null;
   ephemeral: boolean;
 }
 

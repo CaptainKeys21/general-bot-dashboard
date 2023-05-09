@@ -4,6 +4,7 @@ import MessageEmbedAuthor from './author';
 import MessageEmbedField from './fields';
 import MessageEmbedFooter from './footer';
 import './style.scss';
+import MessageEmbedVideo from './video';
 
 interface Props {
   embed: Embed;
@@ -13,7 +14,17 @@ interface Props {
 const MessageEmbed = ( { embed }: Props ) => {
   const embedColor = embed.colour?.toString(16) || '#1e1f22';
   return (
-    <div className="embed-main" style={{ borderLeft: `6px solid ${embedColor}` }}>
+    <div className="embed-main" style={{ borderLeft: `6px solid ${embedColor}`}}>
+      {embed.provider && embed.provider.name && (
+        <div className="embed-provider">
+          {embed.provider.url? (
+            <a href={embed.provider.url}><small>{embed.provider.name}</small></a>
+          ):(
+            <small>{embed.provider.name}</small>
+          )} 
+        </div>
+      )}
+
       {embed.author && (<MessageEmbedAuthor author={embed.author} />)}
 
       {embed.title && (
@@ -48,6 +59,8 @@ const MessageEmbed = ( { embed }: Props ) => {
           <img src={embed.image.url} alt="Embed Image" width={embed.image.width || undefined} height={embed.image.height || undefined}/>
         </div>
       )}
+
+      {embed.video && embed.thumbnail && (<MessageEmbedVideo url={embed.url} video={embed.video} thumb={embed.thumbnail} />)}
       
       {embed.footer && <MessageEmbedFooter footer={embed.footer }/>}
     </div>
