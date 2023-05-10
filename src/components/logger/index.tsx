@@ -1,5 +1,5 @@
 import { useTransition, animated } from '@react-spring/web';
-import React, { useEffect, useState } from 'react';
+import React, { Key, useEffect, useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { io } from 'socket.io-client';
 
