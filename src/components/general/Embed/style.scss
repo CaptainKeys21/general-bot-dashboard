@@ -100,10 +100,19 @@
   }
 }
 
+.embed-provider {
+  margin-bottom: 4px;
+  a {
+    &:visited {
+      color: inherit;
+    }
+  }
+}
+
 .embed-video-wrapper {
   grid-area: image;
   display: flex;
-  
+
   & > div {
     margin: 0;
     padding: 0;
@@ -111,6 +120,14 @@
     position: relative;
     border-radius: 16px;
     overflow: hidden;
+
+    width: 50%;
+
+    img {
+      height: auto;
+      width: auto;
+      max-width: 100%;
+    }
   }
 
   .embed-video-controller {

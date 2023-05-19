@@ -1,15 +1,22 @@
 ---
+import Tabs from '../../components/general/tabs.astro';
 import AvatarImage from '../../components/member/avatarImage.astro';
 import RoleSpan from '../../components/member/roleSpan.astro';
 import MemberControllerLayout from '../../layouts/memberControllerLayout.astro';
+import axios from '../../utils/axios';
 import type { DiscordMember } from '../../types/Discord';
 import type { IApiResponse } from '../../types/Responses';
 import { getHoistedRole, getMainRoleColor } from '../../utils/roleFunctions';
+import MemberMessages from '../../components/member/MemberMessages';
 
 const { userid } = Astro.params;
-const res: IApiResponse<DiscordMember> = await fetch(`http://general-bot-api-development:8081/members/${userid}`).then((r) => r.json());
-
-const { data } = res;
+let data: DiscordMember | undefined;
+try {
+  const response = await axios.get<IApiResponse<DiscordMember>>(`http://general-bot-api-development:8081/members/${userid}`);
+  data = response.data.data;
+} catch (e) {
+  return Astro.redirect('../404');
+}
 
 const hoistedRole = getHoistedRole(data.roles);
 const [roleColor, contrastColor] = getMainRoleColor(hoistedRole);
@@ -44,14 +51,13 @@ const [roleColor, contrastColor] = getMainRoleColor(hoistedRole);
   </div>
   <div class="msgs-card">
     <div class="header">
-      <h2>Mensagens e Tickets</h2>
+      <h2>Mensagens</h2>
     </div>
     <div class="body">
-      <p>Ainda não foi implementado :(</p>
+      <MemberMessages userId={userid || ''} client:only={'react'}/>
     </div>
   </div>
 </MemberControllerLayout>
-
 <style lang="scss" define:vars={{roleColor, contrastColor}}>
   @import '../../styles/variables.scss';
 
@@ -133,6 +139,11 @@ const [roleColor, contrastColor] = getMainRoleColor(hoistedRole);
       color: $discordWhite;
 
       display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      height: 50vh;
+      overflow-y: scroll;
     }
   }
 </style>

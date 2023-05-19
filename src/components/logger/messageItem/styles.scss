@@ -8,14 +8,5 @@
   background-color: $discordBlack;
 
   color: $discordWhite;
-
-  .message-sticker {
-    display: flex;
-    flex-direction: column;
-    img {
-      width: 160px;
-      height: auto;
-    }
-  }
 }
 

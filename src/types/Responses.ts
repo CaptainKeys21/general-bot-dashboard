@@ -15,3 +15,10 @@ export interface IAPIStandardError {
   code: string;
   detail: string;
 }
+
+export interface IdNames {
+  [k: string]: {
+    name: string;
+    [k: string]: string | number;
+  }
+}

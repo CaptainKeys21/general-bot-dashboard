@@ -1,0 +1,30 @@
+@import '../../../styles/variables.scss';
+
+.referenced-message {
+  margin-bottom: 4px;
+  color: $alphaWhite;
+  position: relative;
+  left: 24px;
+  &::before {
+    content: '╭';
+    font-size: 1.5rem;
+    margin-right: 4px;
+    position: absolute;
+    top: -14px;
+    left: -28px;
+  }
+
+  a {
+    color: $discordWhite;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:visited {
+      color: inherit;
+    }
+  }
+}

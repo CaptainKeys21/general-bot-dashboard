@@ -87,11 +87,7 @@ export interface DiscordMessage {
     guild_id: string | null;
   } | null;
   flags: number;
-  sticker_items: {
-    id: string;
-    name: string;
-    format_type: StickerFormatType;
-  }[];
+  sticker_items: StickerItem[];
   referenced_message: DiscordMessage | null;
   interaction: {
     id: string;
@@ -126,6 +122,12 @@ export interface DiscordAttachment {
   width: number | null;
   content_type: string | null;
   ephemeral: boolean;
+}
+
+export interface StickerItem {
+  id: string;
+  name: string;
+  format_type: StickerFormatType;
 }
 
 export interface ActionRow {

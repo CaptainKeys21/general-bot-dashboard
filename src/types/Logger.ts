@@ -2,7 +2,7 @@ import type { DiscordMessage, DiscordUser } from './Discord';
 
 export type Log = CommandLog | MessageLog;
 
-interface BaseLog {
+export interface BaseLog {
   logType: string;
   category: string;
   message?: string;

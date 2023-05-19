@@ -1,0 +1,14 @@
+@import '../../../styles/variables.scss';
+
+.message-wrapper {
+  width: 100%;
+}
+.message-item {
+  padding: 8px;
+  border-bottom: 2px solid $alphaDark;
+  overflow: hidden;
+
+  & > small {
+    font-size: 0.75rem;
+  }
+}

@@ -3,6 +3,8 @@ import ReactAudioPlayer from 'react-audio-player';
 import ReactPlayer from 'react-player';
 import type { DiscordAttachment } from '../../../types/Discord';
 import './style.scss';
+import { formatByte } from '../../../utils/dataFunctions';
+import { FaFileArchive } from 'react-icons/fa';
 
 interface Props {
   attachment: DiscordAttachment;
@@ -10,7 +12,7 @@ interface Props {
 
 const MessageAttachment = ({ attachment }: Props) => {
   const type = attachment.content_type?.split('/')[0] || 'unknown';
-  let MediaTag: JSX.Element = (<a href={attachment.url}>{attachment.filename}</a>);
+  let MediaTag: JSX.Element = (<a href={attachment.url}><FaFileArchive />{attachment.filename}</a>);
 
   if (attachment.content_type) {
     switch (type) {
@@ -34,7 +36,7 @@ const MessageAttachment = ({ attachment }: Props) => {
   return (
     <div className={`message-attachment ${type}`}>
       {MediaTag}
-      <small><a href={attachment.url}>{attachment.filename}</a> | {attachment.size}</small>
+      <small><a href={attachment.url}>{attachment.filename}</a> | {formatByte(attachment.size)}</small>
     </div>
   );
 };

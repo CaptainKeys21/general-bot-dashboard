@@ -4,12 +4,15 @@
   flex-direction: column;
   margin-top: 8px;
   padding: 8px;
+  width: 50%;
 
   small {
     margin-top: 8px;
   }
 
   img {
+    width: auto;
+    height: auto;
     max-width: 100%;
     border-radius: 8px;
   }
