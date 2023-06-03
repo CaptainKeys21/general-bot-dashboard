@@ -1,5 +1,6 @@
 
 import type { Embed } from '../../../types/DiscordEmbed';
+import Content from '../Content';
 import MessageEmbedAuthor from './author';
 import MessageEmbedField from './fields';
 import MessageEmbedFooter from './footer';
@@ -44,7 +45,8 @@ const MessageEmbed = ( { embed }: Props ) => {
 
       {embed.description && (
         <div className="embed-description">
-          <p>{embed.description}</p>
+          <p><Content>{embed.description}</Content></p>
+          {/* <p>{embed.description}</p> */}
         </div>
       )}
 

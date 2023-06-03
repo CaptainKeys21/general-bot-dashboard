@@ -4,6 +4,7 @@ import './styles.scss';
 import type { IApiResponse } from '../../../types/Responses';
 import { useStore } from '@nanostores/react';
 import { page, pageSize, selectedColections } from './selectedCollections';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 
 const ControlPannel = () => {
@@ -13,7 +14,8 @@ const ControlPannel = () => {
   const onChangePageSize = (e: ChangeEvent<HTMLInputElement>) => pageSize.set(Number(e.target.value));
 
   const $page = useStore(page);
-  const onChangePage = (e: ChangeEvent<HTMLInputElement>) => page.set(Number(e.target.value));
+  const onClickNextPage = () => page.set($page + 1); 
+  const onClickPreviousPage = () => $page > 1 && page.set($page - 1); 
 
   const $selectedCollections = useStore(selectedColections);
   const addCollection = (coll: string) => {
@@ -46,8 +48,10 @@ const ControlPannel = () => {
       </div>
       <div className="pannel-pagination">
         <div className="pagination-input">
-          <label htmlFor="page">Página</label>
-          <input type="number" name="page" value={$page} onChange={onChangePage} />
+          <label>Página</label>
+          <button onClick={onClickPreviousPage} className='page-button'><FaAngleLeft size={'1.5rem'} /></button>
+          <p>{$page}</p>
+          <button onClick={onClickNextPage} className='page-button'><FaAngleRight size={'1.5rem'} /></button>
         </div>
         <div className="pagination-input">
           <label htmlFor="pageSize">Quantidade por página</label>

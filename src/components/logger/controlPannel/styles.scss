@@ -44,6 +44,9 @@
         
     margin: 0.5rem;
     border: 2px solid $discordBlack-Darker;
+    background-color: $discordBlack;
+    border-radius: 8px;
+    overflow: hidden;
 
     label {
       color: $discordWhite;
@@ -51,7 +54,6 @@
 
       height: 100%;
       padding: 0.5rem;
-      border-radius: 8px 0 0 8px;
 
  
       
@@ -68,7 +70,20 @@
       padding: 0.5rem;
       
       border: none;
-      border-radius: 0 8px 8px 0;
+    }
+
+    button.page-button {
+      background: none;
+      color: $discordWhite;
+
+      border: none;
+
+      width: 32px;
+      height: 100%;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }
