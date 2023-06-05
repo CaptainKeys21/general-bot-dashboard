@@ -1,0 +1,65 @@
+@import 'react-datepicker/dist/react-datepicker.css';
+@import '../../../styles/variables.scss';
+
+.datepicker {
+  background-color: inherit;
+  border: none;
+  color: inherit;
+  padding: 8px;
+  width: 8rem;
+
+}
+
+.calendar-wrapper {
+  .calendar-datepicker {
+    @include defaultShadow;
+    border: none;
+    background-color: $discordBlack;
+
+    div[class*='triangle']::after {
+      border-bottom-color: $discordBlack-Darker;
+    }
+
+    div[class*='triangle']::before {
+      border-bottom-color: $discordBlack;
+    }
+  
+    div[class*='header'] {
+      background-color: $discordBlack-Darker;
+      div {
+        color: $discordWhite;
+      }
+    }
+
+    div[class*='day'] {
+      color: $discordWhite;
+    }
+
+    div[class*='outside-month'] {
+      color: $alphaWhite;
+    }
+
+    div[class*='selected'] {
+      background-color: $discordWhite;
+      color: $discordBlack;
+    }
+
+    div[class*='time-container'] {
+      div[class*='time-box'] {
+        background-color: $discordBlack;
+        color: $discordWhite;
+        li[class*='time-list-item']:hover {
+          background-color: $alphaDark;
+        }
+
+        li[class*='time-list-item--selected'] {
+          background-color: $discordWhite;
+          color: $discordBlack;
+        }
+      }
+
+    }
+
+  }
+
+}
