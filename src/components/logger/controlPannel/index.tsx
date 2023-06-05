@@ -1,22 +1,32 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+import { useStore } from '@nanostores/react';
+
+import { initialDate, finalDate, page, pageSize, selectedColections } from './selectedCollections';
+import type { IApiResponse } from '../../../types/Responses';
+import DatePicker from '../../general/DatePicker';
 import axios from '../../../utils/axios';
 import './styles.scss';
-import type { IApiResponse } from '../../../types/Responses';
-import { useStore } from '@nanostores/react';
-import { page, pageSize, selectedColections } from './selectedCollections';
-import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+
 
 
 const ControlPannel = () => {
   const [collections, setCollections] = useState<string[]>([]);
 
+  //* Page Size
   const $pageSize = useStore(pageSize);
   const onChangePageSize = (e: ChangeEvent<HTMLInputElement>) => pageSize.set(Number(e.target.value));
 
+  //* Page
   const $page = useStore(page);
   const onClickNextPage = () => page.set($page + 1); 
   const onClickPreviousPage = () => $page > 1 && page.set($page - 1); 
 
+  //* Date Filter
+  const $initialDate = useStore(initialDate);
+  const $finalDate = useStore(finalDate);
+
+  //* Selected Collectionns
   const $selectedCollections = useStore(selectedColections);
   const addCollection = (coll: string) => {
     $selectedCollections.push(coll);
@@ -56,6 +66,20 @@ const ControlPannel = () => {
         <div className="pagination-input">
           <label htmlFor="pageSize">Quantidade por página</label>
           <input type="number" name="pageSize" value={$pageSize} onChange={onChangePageSize}/>
+        </div>
+        <div className="pagination-input">
+          <label htmlFor='initial-date'>Data Inicial</label>
+          <DatePicker 
+            selected={$initialDate} 
+            onChange={(date) => initialDate.set(date?.getTime() || 0)} 
+          />
+        </div>
+        <div className="pagination-input">
+          <label htmlFor='final-date'>Data Final</label>
+          <DatePicker 
+            selected={$finalDate} 
+            onChange={(date) => finalDate.set(date?.getTime() || 0)} 
+          />
         </div>
       </div>
     </div>

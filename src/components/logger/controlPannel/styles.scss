@@ -9,8 +9,6 @@
   top: 0;
 
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 1rem;
 
   background-color: $discordBlack-Darker;
@@ -21,6 +19,7 @@
 .pannel-collections {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 
   .collection-checkbox {
     margin: 0.5rem;
@@ -35,6 +34,7 @@
 
 .pannel-pagination {
   display: flex;
+  flex-wrap: wrap;
 
   .pagination-input {
     display: flex;
@@ -61,7 +61,7 @@
       white-space: nowrap;
     }
 
-    input {
+    input:not([class]) {
       background-color: $discordBlack;
       color: $discordWhite;
 

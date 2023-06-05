@@ -3,7 +3,7 @@ import React, { Key, useEffect, useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { io } from 'socket.io-client';
 
-import { page, pageSize, selectedColections } from './controlPannel/selectedCollections';
+import { finalDate, initialDate, page, pageSize, selectedColections } from './controlPannel/selectedCollections';
 import type { IApiPagedResponse } from '../../types/Responses';
 import type { Log } from '../../types/Logger';
 import CommandItem from './commandItem';
@@ -28,12 +28,17 @@ const LoggerItem = (log: Log) => {
 const LoggerWrapper = () => {
   const [data, setData] = useState<Log[]>([]);
   const $selectedCollections = useStore(selectedColections);
+
   const $pageSize = useStore(pageSize);
   const $page = useStore(page);
 
-  const fetchInitialData = async (collections: string[], page: number, pageSize: number): Promise<Log[]> => {
+  const $initialDate = useStore(initialDate);
+  const $finalDate = useStore(finalDate);
+
+  const fetchInitialData = async (collections: string[], page: number, pageSize: number, initialDate?: number, finalDate?: number): Promise<Log[]> => {
     const queryStringCategories = collections.map((coll) => `category=${coll}`).join('&');
-    const res = await axios.get<IApiPagedResponse<Log[]>>(`/logger?${queryStringCategories}&page=${page}&pageSize=${pageSize}`, { baseURL: 'http://localhost:8081' });
+    const queryDate = `${initialDate? `&dateInitial=${initialDate}`:''}${finalDate? `&dateFinal=${finalDate}`:''}`;
+    const res = await axios.get<IApiPagedResponse<Log[]>>(`/logger?${queryStringCategories}&page=${page}&pageSize=${pageSize}${queryDate}`, { baseURL: 'http://localhost:8081' });
     return res.data.data;
   }; 
 
@@ -45,7 +50,7 @@ const LoggerWrapper = () => {
   });
 
   useEffect(() => {
-    fetchInitialData($selectedCollections, $page, $pageSize)
+    fetchInitialData($selectedCollections, $page, $pageSize, $initialDate, $finalDate)
       .then((data) => setData(data));
 
 
@@ -59,7 +64,7 @@ const LoggerWrapper = () => {
       $selectedCollections.forEach((coll) => socket.off(coll, addData));
     };
 
-  },[$selectedCollections, $page, $pageSize]);
+  },[$selectedCollections, $page, $pageSize, $initialDate, $finalDate]);
 
   return transitions((style, item) => (
     <animated.div style={style}>
