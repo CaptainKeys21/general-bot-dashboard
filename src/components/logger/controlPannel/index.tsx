@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import { useStore } from '@nanostores/react';
 
-import { initialDate, finalDate, page, pageSize, selectedColections } from './selectedCollections';
+import { initialDate, finalDate, page, pageSize, selectedColections } from '../../../utils/loggerControlPannel';
 import type { IApiResponse } from '../../../types/Responses';
 import DatePicker from '../../general/DatePicker';
 import axios from '../../../utils/axios';

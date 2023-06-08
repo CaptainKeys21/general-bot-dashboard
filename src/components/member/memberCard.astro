@@ -25,7 +25,7 @@ const [roleColor, contrastColor] = getMainRoleColor(hoistedRole);
     </h2>
     <h5>#{data.user.discriminator}</h5>
     <div class="card-extraData">
-      <span>{hoistedRole.name}</span>
+      {hoistedRole && (<span>{hoistedRole.name}</span>)}
       <h6>Entrou em: {new Date(data.joined_at).toLocaleString('en-GB')}</h6>
     </div>
   </div>

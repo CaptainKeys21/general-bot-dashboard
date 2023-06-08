@@ -1,0 +1,121 @@
+---
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+
+interface Props {
+  page: number;
+  pageSize: number;
+  maxPage: number;
+}
+
+const { page, pageSize, maxPage } = Astro.props;
+
+---
+<aside>
+  <div class="page-selector">
+    <label>Página</label>
+    <div class="page-buttons">
+      <button id="previous-page"><FaAngleLeft /></button>
+      <strong>{page}</strong>
+      <button id="next-page"><FaAngleRight /></button>
+    </div>
+  </div>
+  <div class="page-size">
+    <label for="member-page-size">Tamanho da página</label>
+    <select name="member-page-size" id="member-page-size-select">
+      <option selected={pageSize === 10} value="10">10</option>
+      <option selected={pageSize === 50} value="50">50</option>
+      <option selected={pageSize === 100} value="100">100</option>
+      <option selected={pageSize === 150} value="150">150</option>
+      <option selected={pageSize === 200} value="200">200</option>
+    </select>
+  </div>
+</aside>
+<style lang="scss">
+  @import '../../styles/variables.scss';
+
+  aside {
+    @include defaultShadow;
+
+    position: fixed;
+    left: 12rem;
+    width: 12rem;
+    height: 8rem;
+
+    background-color: $discordBlack-Darker;
+    color: $discordWhite;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 16px;
+
+    div.page-selector {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      label {
+        text-align: center;
+      }
+
+      div.page-buttons {
+        border-radius: 8px;
+        overflow: hidden;
+        display: inherit;
+        justify-content: center;
+        align-items: stretch;
+        height: 1.5rem;
+
+        strong {
+          background-color: $discordWhite;
+          color: $discordBlack-Darker;
+
+          width: 1.5rem;
+
+          line-height: 1.5rem;
+
+          text-align: center;
+          vertical-align: middle;
+        }
+     
+        button {
+          background-color: none;
+          border: none;
+
+          font-size: 1.5rem;
+
+          width: 1.5rem;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    div.page-size {
+      display: flex;
+      flex-direction: column;
+
+      select {
+        border-radius: 8px;
+      }
+    }
+
+  }
+</style>
+<script define:vars={{page, pageSize, maxPage}}>
+  const mainUrl = window.location.origin;
+
+  const btnPreviousPage = document.getElementById('previous-page');
+  btnPreviousPage && btnPreviousPage.addEventListener('click', () => page > 1 && window.location.replace(`${mainUrl}/members?page=${page - 1}&pageSize=${pageSize}`));
+
+  const btnNextPage = document.getElementById('next-page');
+  btnNextPage && btnNextPage.addEventListener('click', () => page < maxPage && window.location.replace(`${mainUrl}/members?page=${page + 1}&pageSize=${pageSize}`));
+
+  const slctPageSize = document.getElementById('member-page-size-select');
+  slctPageSize && slctPageSize.addEventListener('change', (e) => window.location.replace(`${mainUrl}/members?page=${page}&pageSize=${e.target.value}`));
+
+
+</script>

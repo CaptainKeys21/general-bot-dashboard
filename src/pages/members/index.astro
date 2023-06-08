@@ -1,18 +1,23 @@
 ---
 import MemberCard from '../../components/member/memberCard.astro';
+import Pagination from '../../components/member/pagination.astro';
 import MembersLayout from '../../layouts/membersLayout.astro';
 import type { DiscordMember } from '../../types/Discord';
 import type { IApiPagedResponse } from '../../types/Responses';
 import axios from '../../utils/axios';
 
+const page = Astro.url.searchParams.get('page') || '1';
+const pageSize = Astro.url.searchParams.get('pageSize') || '100';
+
 let memberList: IApiPagedResponse<DiscordMember[]> | undefined;
 try {
-  const res = await axios.get<IApiPagedResponse<DiscordMember[]>>('/members');
+  const res = await axios.get<IApiPagedResponse<DiscordMember[]>>(`/members?page=${page}&numPerPage=${pageSize}`);
   memberList = res.data;
 } catch (error) {
   Astro.redirect('/404');
 }
 ---
 <MembersLayout>
+  <Pagination page={Number(page)} pageSize={Number(pageSize)} maxPage={memberList?.metadata.totalPages || 0} />
   {memberList && memberList.data.map((member) => <MemberCard data={member} />)}
 </MembersLayout>

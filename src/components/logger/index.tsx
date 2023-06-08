@@ -3,7 +3,7 @@ import React, { Key, useEffect, useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { io } from 'socket.io-client';
 
-import { finalDate, initialDate, page, pageSize, selectedColections } from './controlPannel/selectedCollections';
+import { finalDate, initialDate, page, pageSize, selectedColections } from '../../utils/loggerControlPannel';
 import type { IApiPagedResponse } from '../../types/Responses';
 import type { Log } from '../../types/Logger';
 import CommandItem from './commandItem';
