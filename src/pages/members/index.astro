@@ -8,16 +8,29 @@ import axios from '../../utils/axios';
 
 const page = Astro.url.searchParams.get('page') || '1';
 const pageSize = Astro.url.searchParams.get('pageSize') || '100';
+const search = Astro.url.searchParams.get('search') || '';
+
+const formatedSearch = search? `&search=${search}`:'';
 
 let memberList: IApiPagedResponse<DiscordMember[]> | undefined;
 try {
-  const res = await axios.get<IApiPagedResponse<DiscordMember[]>>(`/members?page=${page}&numPerPage=${pageSize}`);
+  const res = await axios.get<IApiPagedResponse<DiscordMember[]>>(`/members?page=${page}&numPerPage=${pageSize}${formatedSearch}`);
   memberList = res.data;
 } catch (error) {
   Astro.redirect('/404');
 }
 ---
 <MembersLayout>
-  <Pagination page={Number(page)} pageSize={Number(pageSize)} maxPage={memberList?.metadata.totalPages || 0} />
-  {memberList && memberList.data.map((member) => <MemberCard data={member} />)}
+  <Pagination page={Number(page)} pageSize={Number(pageSize)} maxPage={memberList?.metadata.totalPages || 0} search={search} />
+  <div class="card-wrapper">
+    {memberList && memberList.data.map((member) => <MemberCard data={member} />)}
+  </div>
 </MembersLayout>
+<style lang="scss">
+  div.card-wrapper {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 2rem;
+  }
+</style>

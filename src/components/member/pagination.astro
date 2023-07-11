@@ -1,54 +1,96 @@
 ---
-import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-
+import { FaAngleLeft, FaAngleRight, FaSearch } from 'react-icons/fa';
 interface Props {
   page: number;
   pageSize: number;
   maxPage: number;
+  search: string;
 }
 
-const { page, pageSize, maxPage } = Astro.props;
+const { page, pageSize, maxPage, search } = Astro.props;
 
 ---
-<aside>
-  <div class="page-selector">
-    <label>Página</label>
-    <div class="page-buttons">
-      <button id="previous-page"><FaAngleLeft /></button>
-      <strong>{page}</strong>
-      <button id="next-page"><FaAngleRight /></button>
+<header>
+  <div class="search-wrapper">
+    <input id="search-input" type="text" value={search} />
+    <button id="search-button"><FaSearch /></button>
+  </div>
+  <div class="pagination-wrapper">
+    <div class="page-selector">
+      <label>Página</label>
+      <div class="page-buttons">
+        <button id="previous-page"><FaAngleLeft /></button>
+        <strong>{page}</strong>
+        <button id="next-page"><FaAngleRight /></button>
+      </div>
+    </div>
+    <div class="page-size">
+      <label for="member-page-size">Tamanho da página</label>
+      <select name="member-page-size" id="member-page-size-select">
+        <option selected={pageSize === 10} value="10">10</option>
+        <option selected={pageSize === 50} value="50">50</option>
+        <option selected={pageSize === 100} value="100">100</option>
+        <option selected={pageSize === 150} value="150">150</option>
+        <option selected={pageSize === 200} value="200">200</option>
+      </select>
     </div>
   </div>
-  <div class="page-size">
-    <label for="member-page-size">Tamanho da página</label>
-    <select name="member-page-size" id="member-page-size-select">
-      <option selected={pageSize === 10} value="10">10</option>
-      <option selected={pageSize === 50} value="50">50</option>
-      <option selected={pageSize === 100} value="100">100</option>
-      <option selected={pageSize === 150} value="150">150</option>
-      <option selected={pageSize === 200} value="200">200</option>
-    </select>
-  </div>
-</aside>
+</header>
 <style lang="scss">
   @import '../../styles/variables.scss';
 
-  aside {
+  header {
     @include defaultShadow;
+    position: sticky;
+    top: 0;
 
-    position: fixed;
-    left: 12rem;
-    width: 12rem;
-    height: 8rem;
-
+    z-index: 10;
     background-color: $discordBlack-Darker;
     color: $discordWhite;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    
     justify-content: space-between;
     align-items: center;
 
+    border-radius: 0 0 8px 8px;
+
     padding: 16px;
+
+    div.search-wrapper {
+      display: flex;
+      max-width: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    div.search-wrapper {
+      margin: 1rem;
+      height: 2rem;
+      display: flex;
+      flex-direction: row;
+      border-radius: 8px;
+      overflow: hidden;
+
+      input {
+        height: 100%;
+        font-size: 1.175rem;
+        border: none;
+        padding-left: 8px;
+        background-color: $discordBlack-Bright;
+        color: $discordWhite;
+      }
+
+      button {
+        height: 100%;
+        padding: 0 0.5rem;
+        background-color: $discordBlack;
+        box-shadow: none;
+        border: none;
+        color: $discordWhite;
+      }
+    }
 
     div.page-selector {
       display: flex;
@@ -103,19 +145,27 @@ const { page, pageSize, maxPage } = Astro.props;
       }
     }
 
+
   }
 </style>
-<script define:vars={{page, pageSize, maxPage}}>
+<script define:vars={{page, pageSize, maxPage, search}}>
   const mainUrl = window.location.origin;
 
+  const formatedSearch = search? `&search=${search}`:'';
+
   const btnPreviousPage = document.getElementById('previous-page');
-  btnPreviousPage && btnPreviousPage.addEventListener('click', () => page > 1 && window.location.replace(`${mainUrl}/members?page=${page - 1}&pageSize=${pageSize}`));
+  btnPreviousPage && btnPreviousPage.addEventListener('click', () => page > 1 && window.location.replace(`${mainUrl}/members?page=${page - 1}&pageSize=${pageSize}${formatedSearch}`));
 
   const btnNextPage = document.getElementById('next-page');
-  btnNextPage && btnNextPage.addEventListener('click', () => page < maxPage && window.location.replace(`${mainUrl}/members?page=${page + 1}&pageSize=${pageSize}`));
+  btnNextPage && btnNextPage.addEventListener('click', () => page < maxPage && window.location.replace(`${mainUrl}/members?page=${page + 1}&pageSize=${pageSize}${formatedSearch}`));
 
   const slctPageSize = document.getElementById('member-page-size-select');
-  slctPageSize && slctPageSize.addEventListener('change', (e) => window.location.replace(`${mainUrl}/members?page=${page}&pageSize=${e.target.value}`));
+  slctPageSize && slctPageSize.addEventListener('change', (e) => window.location.replace(`${mainUrl}/members?page=${page}&pageSize=${e.target.value}${formatedSearch}`));
 
-
+  const btnSearch = document.getElementById('search-button');
+  
+  btnSearch && btnSearch.addEventListener('click', (e) => {
+    const inputValue = document.getElementById('search-input')?.value || '';
+    window.location.replace(`${mainUrl}/members?page=${page}&pageSize=${pageSize}${inputValue? `&search=${inputValue}`:''}`);
+  });
 </script>

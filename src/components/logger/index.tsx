@@ -10,7 +10,7 @@ import CommandItem from './commandItem';
 import axios from '../../utils/axios';
 import MessageItem from './messageItem';
 
-const socket = io('ws://127.0.0.1:8081/logger');
+const socket = io('ws://127.0.0.1:8081/logger').on('connect_error', (err) => console.log({ err }));
 
 const LoggerItem = (log: Log) => {
   switch (log.category) {
